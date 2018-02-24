@@ -1,8 +1,6 @@
-
-import com.company.functions.*;
-
+package ranking;
 import java.util.ArrayList;
-
+import functions.*;
 /**
  * Gray Code
  * Gray Code is used to iterate and rank over a list whilst

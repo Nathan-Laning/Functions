@@ -1,5 +1,5 @@
-package com.company.Ranking;
-import com.company.functions.*;
+package ranking;
+import functions.*;
 import java.util.ArrayList;
 
 /**
