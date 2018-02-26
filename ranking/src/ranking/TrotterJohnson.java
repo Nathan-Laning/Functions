@@ -1,6 +1,6 @@
-package com.company.Ranking;
+package ranking;
 
-import com.company.functions.enumeration;
+import functions.enumeration;
 
 /**
  * Trotter Johnson Ranking

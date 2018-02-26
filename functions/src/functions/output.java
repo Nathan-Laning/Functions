@@ -25,29 +25,14 @@ public class output {
      */
     public static <AnyType> void display(AnyType[][] A) {
         for (int j = 0; j < A.length; j++) {
+            display("{");
             for (int i = 0; i < A[0].length; i++) {
                 display(A[j][i]);
-            }
-            display("");
-        }
-    }
+                if(i!=A[0].length-1)display(",");
 
-    /**
-     * displays ArrayList
-     *
-     * @param A         Array
-     * @param <AnyType> AnyType
-     */
-    public static <AnyType> void display(ArrayList<AnyType> A) {
-        for (int i = 0; i < A.size(); i++) {
-            try {
-                display(A.get(i));
-                display(" ");
-            } catch (NullPointerException n) {
-                display("null");
             }
+            display("}",true);
         }
-        display("", true);
     }
 
     /**
@@ -57,7 +42,13 @@ public class output {
      * @param e input
      */
     public static <E> void display(E e) {
+        if(e==null){
+            System.out.print("\u001B[31m");
+        }
         System.out.print(e);
+        if(e==null){
+            System.out.print("\u001B[0m");
+        }
     }
     /**
      * Display AnyType
@@ -65,13 +56,11 @@ public class output {
      * additional function of choosing to end line
      *
      * @param e input
-     * @param b new line?
+     * @param newLine new line?
      */
-    public static <E> void display(E e, boolean b) {
+    public static <E> void display(E e, boolean newLine) {
         display(e);
-        if (b) {
-            System.out.println("");
-        }
+        if (newLine) System.out.println("");
     }
 
     public static <E> void display(E e, int distance){

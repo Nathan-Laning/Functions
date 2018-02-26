@@ -3,7 +3,7 @@ import functions.*;
 import java.util.ArrayList;
 
 /**
- * uses a mask to increase bitcount until all are used for example:
+ * uses a mask to increase bit-count until all are used for example:
  *   T       c(T)    Rank
  * =====================
  *  {}     [0,0,0]      0
@@ -48,10 +48,10 @@ public class Lexographic {
         }
         return T;
     }
-    public static ArrayList<Integer> MultiSetUnRank(int rank, int n) {
+    public static ArrayList<Integer> MultiSetUnRank(int rank,int n) {
         ArrayList<Integer> A = new ArrayList<>();
         if (n == 1) {
-            A.add(rank - 1);
+            A.add(rank+1);
             return A;
         }
         for (int i = 0; i < n; i++) {
@@ -63,21 +63,22 @@ public class Lexographic {
         while (run) {
             R = X;
             X = MultiSetRank(A);
-            if (X < rank) {
+            if (X <= rank) {
                 A.add(A.remove(A.size() - 1) + 1);
             } else {
                 A.add(A.remove(A.size() - 1) - 1);
                 run = false;
-                output.display(A);
             }
-
         }
         rank -= R;
 
         Integer right = A.remove(A.size() - 1);
         ArrayList<Integer> left;
-        left = MultiSetUnRank(rank, n - 1);
+        left = MultiSetUnRank(rank, n -1);
         left.add(right);
+//        System.out.print(rank);
+//        System.out.print(" : ");
+//        output.display(left);
         return left;
     }
 
@@ -130,20 +131,7 @@ public class Lexographic {
         return x;
     }
 
-//    public static int[] MultiSetSuccesor(int[] T, int n){
-//        for (int i = 0; i <T.length-1 ; i++) {
-//
-//        }
-//        if(T[0]!=n){
-//            T[T.length-1]+=1;
-//            for(int i =0;i<T.length-1;i++){
-//                T[i]=1;
-//            }
-//        }else{
-//            return null;
-//        }
-//        return T;
-//    }
+
 
     public static int[] lexSuc(int[] T, int n) {
         for (int i = 0; i < T.length - 1; i++) {
