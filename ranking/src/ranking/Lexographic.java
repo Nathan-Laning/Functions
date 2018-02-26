@@ -62,7 +62,7 @@ public class Lexographic {
         boolean run = true;
         while (run) {
             R = X;
-            X = MultiSetRank(A);
+//            X = MultiSetRank(A);
             if (X <= rank) {
                 A.add(A.remove(A.size() - 1) + 1);
             } else {
@@ -83,54 +83,43 @@ public class Lexographic {
     }
 
 
-    public static int MultiSetRank(ArrayList<Integer> A) {
-        int rank = 0;//rank
-        if (A.size() == 0) {
-            return 0;
+    public static int MultiSetRank(Integer[] T,int n) {
+        if(T.length==1){
+            return T[0]-1;
         }
-        if (A.size() == 1) {
-            return A.get(0) - 1;
-        } else if (A.get(A.size() - 1) == 1) {
-            return 0;
-        } else {
-            rank++;
-            ArrayList<Integer> left = new ArrayList<>();
-            ArrayList<Integer> right = new ArrayList<>();
-            for (int i = 0; i < A.size() - 1; i++) {
-                left.add(A.get(i));
-                right.add(A.get(A.size() - 1) - 1);
-            }
-            right.add(A.get(A.size() - 1) - 1);
-            rank += MultiSetRank(left);
-            rank += MultiSetRank(right);
+        int rank=T[T.length-1]-1;
+        if(T[T.length-2]!=1)rank++;
+        Integer[] next = new Integer[T.length-1];
+        for (int i = 0; i < next.length; i++) {
+            next[i]=T[i];
         }
-
+        rank+=MultiSetRank(next,n);
         return rank;
     }
 
-    public static ArrayList<Integer> MultiSetSuccessor(ArrayList<Integer> T, int n) {
-        ArrayList<Integer> temp = new ArrayList<>();
-        int size = T.size();
-        if (T.get(0) == n) {
-            return null;
+    public static Integer[] MultiSetSuccessor(Integer[] T, int k,int n) {
+        if (T == null) {
+            Integer[] temp = new Integer[k];
+            for (int i = 0;i<k;i++) {
+                temp[i] = 1;
+            }
+            return temp;
         }
-        for (int i = 0; i < size - 1; i++) {
-            temp.add(T.remove(0));
-            if (!temp.get(temp.size() - 1).equals(T.get(0))) {
-                temp = MultiSetSuccessor(temp, n);
-                temp.addAll(T);
-                return temp;
+        int i = k;
+        boolean run=true;
+        while (i > 0 && run ) {
+            i--;
+            if(T[i]<n){
+                T[i]++;
+                for (int j = i; j < k; j++) {
+                    T[j]=T[i];
+                }
+                run=false;
             }
         }
-        ArrayList<Integer> x = new ArrayList<>();
-        for (int i = 0; i < temp.size(); i++) {
-            x.add(1);
-        }
-        x.add(T.get(0) + 1);
-
-        return x;
+        if(run)return null;
+        return T;
     }
-
 
 
     public static int[] lexSuc(int[] T, int n) {
