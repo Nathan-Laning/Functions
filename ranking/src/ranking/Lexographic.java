@@ -84,16 +84,8 @@ public class Lexographic {
 
 
     public static int MultiSetRank(Integer[] T,int n) {
-        if(T.length==1){
-            return T[0]-1;
-        }
-        int rank=T[T.length-1]-1;
-        if(T[T.length-2]!=1)rank++;
-        Integer[] next = new Integer[T.length-1];
-        for (int i = 0; i < next.length; i++) {
-            next[i]=T[i];
-        }
-        rank+=MultiSetRank(next,n);
+        int rank=0;
+
         return rank;
     }
 
