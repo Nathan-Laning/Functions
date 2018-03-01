@@ -82,6 +82,9 @@ public class Lexographic {
         return left;
     }
 
+    private static int MultiSetFinal(int n,int k){
+        return enumeration.combination(k+n-1,n-1);
+    }
 
     public static int MultiSetRank(Integer[] T,int n) {
         int rank=0;
