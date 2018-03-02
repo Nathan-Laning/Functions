@@ -1,31 +1,34 @@
 package ranking;
+
 import functions.*;
+
 import java.util.ArrayList;
 
 /**
  * uses a mask to increase bit-count until all are used for example:
- *   T       c(T)    Rank
+ *  T       c(T)    Rank
  * =====================
- *  {}     [0,0,0]      0
- *  {3}    [0,0,1]      1
- *  {2}    [0,1,0]      2
- * {2,3}   [0,1,1]      3
- *  ...      ...       ...
- *{1,2,3}  [1,1,1]      7
+ *  {}    [0,0,0]    0
+ *  {3}   [0,0,1]    1
+ *  {2}   [0,1,0]    2
+ * {2,3}  [0,1,1]    3
+ *   ...    ...     ...
+ * {1,2,3}[1,1,1]    7
  */
 public class Lexographic {
     /**
      * Lexographic Ranking
      * given the Integer set e and sample size n return numerical rank
+     *
      * @param e set
      * @param n sample size
      * @return rank
      */
-    public static int rank(ArrayList<Integer> e,int n){
+    public static int rank(ArrayList<Integer> e, int n) {
         int r = 0;
-        for(int i =0 ; i<n;i++){
-            if(e.contains(i)){
-                r=r+enumeration.power(2,n-i);
+        for (int i = 0; i < n; i++) {
+            if (e.contains(i)) {
+                r = r + enumeration.power(2, n - i);
             }
         }
         return r;
@@ -34,24 +37,26 @@ public class Lexographic {
     /**
      * Lexographic UnRank
      * given a rank, and sample size, determine set
+     *
      * @param n Sample Size
      * @param r Rank
      * @return set
      */
-    public static ArrayList<Integer> unrank(int n, int r){
+    public static ArrayList<Integer> unrank(int n, int r) {
         ArrayList<Integer> T = new ArrayList<>();
-        for(int i=n-1;i>0;i--){
-            if(r%2==1){
-                T=set.union(convert.toIntegerArray(T), new Integer[] {i});
+        for (int i = n - 1; i > 0; i--) {
+            if (r % 2 == 1) {
+                T = set.union(convert.toIntegerArray(T), new Integer[]{i});
             }
-            r=r/2;
+            r = r / 2;
         }
         return T;
     }
-    public static ArrayList<Integer> MultiSetUnRank(int rank,int n) {
+
+    public static ArrayList<Integer> MultiSetUnRank(int rank, int n) {
         ArrayList<Integer> A = new ArrayList<>();
         if (n == 1) {
-            A.add(rank+1);
+            A.add(rank + 1);
             return A;
         }
         for (int i = 0; i < n; i++) {
@@ -74,7 +79,7 @@ public class Lexographic {
 
         Integer right = A.remove(A.size() - 1);
         ArrayList<Integer> left;
-        left = MultiSetUnRank(rank, n -1);
+        left = MultiSetUnRank(rank, n - 1);
         left.add(right);
 //        System.out.print(rank);
 //        System.out.print(" : ");
@@ -82,37 +87,68 @@ public class Lexographic {
         return left;
     }
 
-    private static int MultiSetFinal(int n,int k){
-        return enumeration.combination(k+n-1,n-1);
-    }
 
-    public static int MultiSetRank(Integer[] T,int n) {
-        int rank=0;
+    public static int MultiSetRank(Integer[] T, int n) {
+        int rank = 0;
+        Integer[] N = new Integer[n];
+        Integer[] M = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            N[i] = 0;
+            M[i] = 0;
+        }
+//        int j=1;
+        for (int i = 0; i < T.length; i++) {
+                M[T[i] - 1]++;
+            }
+        for (int i = 0; i < T.length; i++) {
+            int next = T[i];
+            while (next > 0) {
+                N[next - 1]++;
+                next--;
+            }
+        }
 
+        output.display(N);
+        output.display(" | ");
+        output.display(M);
+        output.display(" || ");
+//        if(M[n-1]>1) {
+//            N[1] -- ;
+//        }
+//        output.display(N);
+//        output.display(" || ");
+        for (int i = 1; i < n; i++) {
+            if (N[i] > 0) {
+                int k = i + 1;
+                int v = N[i];
+                rank += enumeration.combination(k + v - 1, v - 1);
+            }
+        }
         return rank;
     }
 
-    public static Integer[] MultiSetSuccessor(Integer[] T, int k,int n) {
+
+    public static Integer[] MultiSetSuccessor(Integer[] T, int k, int n) {
         if (T == null) {
             Integer[] temp = new Integer[k];
-            for (int i = 0;i<k;i++) {
+            for (int i = 0; i < k; i++) {
                 temp[i] = 1;
             }
             return temp;
         }
         int i = k;
-        boolean run=true;
-        while (i > 0 && run ) {
+        boolean run = true;
+        while (i > 0 && run) {
             i--;
-            if(T[i]<n){
+            if (T[i] < n) {
                 T[i]++;
                 for (int j = i; j < k; j++) {
-                    T[j]=T[i];
+                    T[j] = T[i];
                 }
-                run=false;
+                run = false;
             }
         }
-        if(run)return null;
+        if (run) return null;
         return T;
     }
 
@@ -136,5 +172,4 @@ public class Lexographic {
         }
         return T;
     }
-
 }
