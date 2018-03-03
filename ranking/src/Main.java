@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 public class Main {
         public static <E> void main(String[] args) {
+//            System.out.print("\u001B[31m");
+//            output.display("");
+//            System.out.print("\u001B[0m");
 //            ArrayList<Integer> x = new ArrayList<>();
 
 
@@ -15,9 +18,9 @@ public class Main {
             ArrayList<E> e= new ArrayList<>();
 //            x.add(3);
             boolean run =true;
-
-            int k=4;
-            int n=4;
+            output.display(enumeration.combination_replace(2,2));
+            int k=3;
+            int n=3;
             Integer[] x = new Integer[n];
             for (int i = 0; i <n; i++) {
                 x[i]=1;
@@ -42,7 +45,7 @@ public class Main {
                 output.display(m,2);
                 x=Lexographic.MultiSetSuccessor(x,n,k);
                 output.display("||");
-                output.display(m==i);
+                output.display(m-i);
                 output.display("",true);
                 i++;
                 if(x==null){

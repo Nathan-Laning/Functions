@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * uses a mask to increase bit-count until all are used for example:
- *  T       c(T)    Rank
+ *   T     c(T)     Rank
  * =====================
  *  {}    [0,0,0]    0
  *  {3}   [0,0,1]    1
@@ -90,40 +90,69 @@ public class Lexographic {
 
     public static int MultiSetRank(Integer[] T, int n) {
         int rank = 0;
-        Integer[] N = new Integer[n];
-        Integer[] M = new Integer[n];
-        for (int i = 0; i < n; i++) {
-            N[i] = 0;
-            M[i] = 0;
-        }
-//        int j=1;
-        for (int i = 0; i < T.length; i++) {
-                M[T[i] - 1]++;
-            }
-        for (int i = 0; i < T.length; i++) {
-            int next = T[i];
-            while (next > 0) {
-                N[next - 1]++;
-                next--;
-            }
-        }
+        int size=T.length;
+//        int i = 0;
+//        int v=2;
+        boolean run = true;
+        Integer[] N = T.clone();
+//        for (int j = 0; j < N.length; j++) {
+//            if(N[j]==1) N[j]--;
+//        }
+//        int j=0;
+//        while (j < N.length) {
+//            output.display(N);
+//            if(N[j]>0){
+//                int k = size;
+//                rank+=enumeration.combination(k + v-1, v-1);
+//
+//                for (int i = j; i < N.length; i++) {
+//                     N[j]-=v;
+//                }
+//            }else j++;
+//            size--;
+//        }
 
-        output.display(N);
-        output.display(" | ");
-        output.display(M);
-        output.display(" || ");
+//        Integer[] N = {0,0,0};
+
+        int j=T.length-1;
+        for (int i = 1; i <T.length+1 ; i++) {
+            if(N[j]>1) {
+                for (int l = 0; l < N[j]-1; l++) {
+                    int k = 2;
+                    int v = i;
+                    rank += enumeration.combination(k + v-1, v-1);
+                }
+            }
+            j--;
+        }
+//        for (int i = 0; i < T.length; i++) {
+//                N[T[i] - 1]++;
+//            }
+//        for (int i = 0; i < T.length; i++) {
+//            int next = T[i];
+//            while (next > 0) {
+//                N[next - 1]++;
+//                next--;
+//            }
+//        }
+
+//        output.display(N);
+//        output.display(" | ");
+//        output.display(M);
+//        output.display(" || ");
 //        if(M[n-1]>1) {
 //            N[1] -- ;
 //        }
 //        output.display(N);
 //        output.display(" || ");
-        for (int i = 1; i < n; i++) {
-            if (N[i] > 0) {
-                int k = i + 1;
-                int v = N[i];
-                rank += enumeration.combination(k + v - 1, v - 1);
-            }
-        }
+//        for (int i = 1; i < n; i++) {
+//            if (N[i] > 0) {
+//                int k = N[i];
+//                int v = i + 1;
+//                rank += enumeration.combination(k + v -1, v - 1);
+////                rank -= enumeration.combination(1,k);
+//            }
+//        }
         return rank;
     }
 
