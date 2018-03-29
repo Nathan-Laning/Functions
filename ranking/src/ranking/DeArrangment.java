@@ -23,6 +23,8 @@ public class DeArrangment {
         }
     }
 
+
+
 //
 //    public static Integer[] swap(Integer[] e, int a, int b){
 //        Integer[] c=new Integer[e.length];

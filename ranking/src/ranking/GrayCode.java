@@ -28,7 +28,11 @@ public class GrayCode {
      * @return
      */
     public static ArrayList<Integer> successor(int n, ArrayList<Integer> T) {
-        ArrayList<Integer> U;
+        ArrayList<Integer> U=new ArrayList<>();
+        if(T == null){
+            U.add(n);
+            return U;
+        }
         if (T.size() % 2 == 0) {
             U = set.symmetricDifference(T, convert.toArrayList(new Integer[]{n}));
         } else {
