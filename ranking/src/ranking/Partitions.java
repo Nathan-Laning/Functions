@@ -21,11 +21,13 @@ class Partitions
 
         // This loop first prints current partition, then generates next
         // partition. The loop stops when the current partition has all 1s
+        int rank=0;
         while (true)
         {
             // print current partition
+            System.out.print(rank+" : ");
             printArray(p, k+1);
-
+            rank++;
             // Generate next partition
 
             // Find the rightmost non-one value in p[]. Also, update the
@@ -64,14 +66,9 @@ class Partitions
     // Driver program
     public static void main (String[] args)
     {
-        System.out.println("All Unique Partitions of 2");
-        printAllUniqueParts(2);
 
-        System.out.println("All Unique Partitions of 3");
-        printAllUniqueParts(3);
-
-        System.out.println("All Unique Partitions of 4");
-        printAllUniqueParts(4);
+        System.out.println("All Unique Partitions of 28");
+        printAllUniqueParts(28);
     }
 }
 
