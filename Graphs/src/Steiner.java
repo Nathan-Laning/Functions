@@ -1,75 +1,82 @@
 import functions.*;
-
 import java.util.ArrayList;
+import java.util.Random;
 
 class Steiner {
 
-    int limit=2;
+   private int size=0,limit = 2;
 
-    void STS(int n){
-        limit=n;
-        int number_of_triples= n*(n-1)/6;
-        //P is an n element set
-        ArrayList<Integer> P = new ArrayList<>();
-        for (Integer i = 1; i < n+1; i++) {
-            P.add(i);
+    void STS(int n) {
+        Random R = new Random(System.currentTimeMillis());
+        int number_of_triples = n * (n - 1) / 6;
+        //generating all possible permutations
+        ArrayList<ArrayList<Integer>> Pairs = generate(2,n);
+        ArrayList<ArrayList<Integer>> triples = combine(Pairs);
+        ArrayList<ArrayList<Integer>> Seed = new ArrayList<>();
+        while (Seed.size()!=number_of_triples){
+            Seed.add(triples.get(R.nextInt(triples.size())));
+
+
         }
-        //B is the collection of n*(n-1)/6 3 element subsets of P called triples
-        ArrayList<ArrayList<Integer>> B = new ArrayList<>();
-        //first generate all triples?
-
-        //then for each triple branch out
-        //then keep adding triples until its fully functional?
-        for (Integer I =0;I<number_of_triples;I++) {
-            ArrayList<Integer> set = new ArrayList<>();
-            set.add(P.get(I));
-            set.add(addOne(P.get(I)));
-            set.add(addOne(addOne(P.get(I))));
-            B.add(set);
-        }
-        output.display(B);
-
-
     }
 
-    ArrayList<ArrayList<Integer>> generateAllPossibleCombinations(int size,int range){
-        limit=range;
-        boolean contains;
-        ArrayList<ArrayList<Integer>> Master = new ArrayList<>();
-        Integer[] Item = new Integer[size];
-        for (int i = 0; i < size; i++) {
-            Item[i]=i+1;
-        }
-        Master.add(convert.toArrayList(Item));
-        //for the size of the array
-        for (int i = 0; i < size; i++) {
-            // for all possible values it isn't already
-            for (int j = 0; j < range-1; j++) {
-                Item[i]=addOne(Item[i]);
-
+    private ArrayList<ArrayList<Integer>> combine(ArrayList<ArrayList<Integer>> pairs) {
+        ArrayList<ArrayList<Integer>> triplets = new ArrayList<>();
+        for (int i = 0; i < pairs.size(); i++) {
+            for (int j = i+1; j < pairs.size(); j++) {
+                ArrayList<Integer> temp = set.union(pairs.get(i),pairs.get(j));
+                if(temp.size()==3){
+                    triplets.add(Sorting.basicIntegerSort(temp));
+                }
             }
         }
+        return set.union(new ArrayList<>(),triplets);
+    }
 
+    ArrayList<ArrayList<Integer>> generate(int size, int range) {
+        limit = range;
+        this.size=size;
+        ArrayList<Integer> Item = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Item.add(1);
+        }
+        return generateAllPossibleCombinations(size);
+    }
+
+    ArrayList<ArrayList<Integer>> generateAllPossibleCombinations(int n) {
+        ArrayList<ArrayList<Integer>> Master = new ArrayList<>();
+//        ArrayList<Integer> sample = new ArrayList<>();
+        if (n == 1) {
+            for (int i = 0; i < limit; i++) {
+                ArrayList<Integer> Base = new ArrayList<>();
+                Base.add(i + 1);
+                Master.add(Base);
+            }
+            return Master;
+        }
+        for (int i = 0; i < limit; i++) {
+            ArrayList<ArrayList<Integer>> Previous = generateAllPossibleCombinations(n - 1);
+            for (ArrayList<Integer> M : Previous) {
+                M.add(i + 1);
+            }
+            Master.addAll(Previous);
+        }
         return Master;
     }
 
-
-    Integer addOne(int num){
-        if(num+1>limit) return 1;
-        return num+1;
-    }
-
-    Integer subOne(int num){
-        if(num-1<1) return limit;
-        else return num-1;
-    }
-
-
-
-    boolean contains(int[] I, int index, int value){
-        for (int i = 0; i < I.length; i++) {
-            if(I[i]==value&&index!=i)return true;
+    ArrayList<ArrayList<Integer>> removeMultisets(ArrayList<ArrayList<Integer>> ITEMS){
+        int i=0;
+        for (;;) {
+            try {
+                if (functions.set.union(ITEMS.get(i), ITEMS.get(i)).size() != size){
+                    ITEMS.remove(i);
+                    i--;
+                }
+                i++;
+            }catch (IndexOutOfBoundsException E){
+                return ITEMS;
+            }
         }
-        return false;
     }
+
 }
