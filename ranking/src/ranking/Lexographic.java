@@ -20,18 +20,16 @@ public class Lexographic {
      * Lexographic Ranking
      * given the Integer set e and sample size n return numerical rank
      *
-     * @param e set
+//     * @param e set
      * @param n sample size
      * @return rank
      */
-    public static int rank(ArrayList<Integer> e, int n) {
-        int r = 0;
-        for (int i = 0; i < n; i++) {
-            if (e.contains(i)) {
-                r = r + enumeration.power(2, n - i);
-            }
+    public static int rank(int[] T,int n) {
+        int rank=0;
+        for (int i = T.length-1; i >=0 ; i--) {
+            rank += T[i]*enumeration.power(n,T.length-i-1);
         }
-        return r;
+        return rank;
     }
 
     /**
@@ -182,10 +180,23 @@ public class Lexographic {
     }
 
 
+    public static void Successor(int[] T, int n){
+        for (int i = T.length-1; i >=0 ; i--) {
+            if(T[i]==n-1){
+                T[i]=0;
+            }else{
+                T[i]++;
+                return;
+            }
+
+        }
+
+    }
+
     public static int[] lexSuc(int[] T, int n) {
-        for (int i = 0; i < T.length - 1; i++) {
-            if (T[i] - T[i + 1] != 1) {
-                T[i + 1] += 1;
+        for (int i = 0; i <T.length-1; i++) {
+            if (T[i+1] - T[i] != 1) {
+                T[i + 1] ++;
                 return T;
             }
         }

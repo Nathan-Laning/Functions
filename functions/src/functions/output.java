@@ -16,10 +16,16 @@ public class output {
         }
         display("");
     }
+    public static void display(int[] A) {
+        for (int i = 0; i < A.length; i++) {
+            display(A[i]);
+            display(" ");
+        }
+        display("");
+    }
 
     /**
      * Displays two dimensional arrays
-     *
      * @param A         2d Array
      * @param <AnyType> AnyType
      */
@@ -76,6 +82,16 @@ public class output {
         for(int i =0; i<dif/2;i++){
             display(" ");
         }
+    }
+
+    public static void display(boolean B){
+        if(B){
+            System.out.print("\u001B[32m");
+        }else{
+            System.out.print("\u001B[31m");
+        }
+        System.out.print(B);
+        System.out.print("\u001B[0m");
     }
 
     public static <E> void generateGraph(ArrayList<E> titles, ArrayList<ArrayList<E>> Data){

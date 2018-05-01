@@ -137,7 +137,7 @@ public class enumeration {
             System.out.print(n);
             valid = false;
         }
-        System.out.println("");
+        if(!valid) System.out.println("");
         return valid;
     }
 
@@ -162,10 +162,10 @@ public class enumeration {
      * @param p exponent
      * @return result
      */
-    public static int power(int n,int p){
+    public static int power(int base,int exp){
         int result=1;
-        for(int i=0;i<p;i++){
-            result*=n;
+        for(int i=0;i<exp;i++){
+            result*=base;
         }
         return result;
     }
