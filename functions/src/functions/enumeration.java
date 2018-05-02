@@ -105,7 +105,7 @@ public class enumeration {
         if(check_input(n,r)) {
             return factorial(n + r - 1) / (factorial(r) * factorial(n - 1));
         }else{
-            return -1;
+            return 1000;
         }
     }
 
@@ -119,22 +119,28 @@ public class enumeration {
     private static boolean check_input(int n, int r) {
         Boolean valid = true;
         if (!is_pos(n)) {
-            System.out.print(" Object size ");
+            System.out.print("\u001B[31m");
+            System.out.print("ERROR: Object size ");
             System.out.print(n);
-            System.out.print(" must be positive ");
+            System.out.println(" must be positive ");
+            System.out.print("\u001B[0m");
             valid = false;
         }
         if(!is_pos(r)){
-            System.out.print(" sample size ");
+            System.out.print("\u001B[31m");
+            System.out.print("ERROR: sample size ");
             System.out.print(r);
-            System.out.print(" must be positive ");
+            System.out.println(" must be positive ");
+            System.out.print("\u001B[0m");
             valid = false;
         }
         if (n < r) {
+            System.out.print("\u001B[31m");
             System.out.print("ERROR: sample size ");
             System.out.print(r);
             System.out.print(" must be larger then object size ");
-            System.out.print(n);
+            System.out.println(n);
+            System.out.print("\u001B[0m");
             valid = false;
         }
         if(!valid) System.out.println("");
@@ -149,7 +155,6 @@ public class enumeration {
      */
     private static boolean is_pos(int number){
         if(number < 0){
-            System.out.println("ERROR: Positive number required");
             return false;
         }
         return true;
@@ -158,8 +163,8 @@ public class enumeration {
     /**
      * Exponents (powers)
      * i.e. n^p ~ 2^3 = 8
-     * @param n base
-     * @param p exponent
+     * @param base
+     * @param exp
      * @return result
      */
     public static int power(int base,int exp){

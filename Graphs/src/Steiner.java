@@ -13,9 +13,14 @@ class Steiner {
         ArrayList<ArrayList<Integer>> Pairs = generate(2,n);
         ArrayList<ArrayList<Integer>> triples = combine(Pairs);
         ArrayList<ArrayList<Integer>> Seed = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<Integer>>> Removed = new ArrayList<>();
         while (Seed.size()!=number_of_triples){
-            Seed.add(triples.get(R.nextInt(triples.size())));
-
+            ArrayList<Integer> next = triples.get(R.nextInt(triples.size()));
+//            Removed.get(Seed.size()).add(next);
+            if(check(Seed,next)) {
+                Seed.add(next);
+                output.display(Seed);
+            }
 
         }
     }
@@ -77,6 +82,27 @@ class Steiner {
                 return ITEMS;
             }
         }
+    }
+
+    boolean check(ArrayList<ArrayList<Integer>> master, ArrayList<Integer> Component){
+        ArrayList<ArrayList<Integer>> pairs = new ArrayList<>();
+        for (int i = 0;i<Component.size()-1;i++){
+            for (int j = i+1;j<Component.size();j++){
+                ArrayList<Integer> pair=new ArrayList<>();
+                pair.add(Component.get(i));
+                pair.add(Component.get(j));
+                pairs.add(pair);
+            }
+        }
+        for (ArrayList<Integer> All: master) {
+            for (ArrayList<Integer> NEW: pairs) {
+                if(set.union(All,NEW).size()==3){
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 }

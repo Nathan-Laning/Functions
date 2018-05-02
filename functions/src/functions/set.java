@@ -21,7 +21,9 @@ public class set {
     public static <E> ArrayList<E> union(E[] a, E[] b) {
         ArrayList<E> c = new ArrayList<>();
         for (int i = 0; i < a.length; i++) {
-            c.add(a[i]);
+            if (!c.contains(a[i])) {
+                c.add(a[i]);
+            }
         }
         for (int i = 0; i < b.length; i++) {
             if (!c.contains(b[i])) {
@@ -58,7 +60,9 @@ public class set {
     public static <E> ArrayList<E> union(ArrayList<E> a, ArrayList<E> b) {
         ArrayList<E> c = new ArrayList<>();
         for (int i = 0; i < a.size(); i++) {
-            c.add(a.get(i));
+            if (!c.contains(a.get(i))) {
+                c.add(a.get(i));
+            }
         }
         for (int i = 0; i < b.size(); i++) {
             if (!c.contains(b.get(i))) {
@@ -125,5 +129,10 @@ public class set {
         }
         return out;
 
+    }
+
+    public <E> boolean containsDuplicate(ArrayList<E>  A){
+        int originalSize=A.size();
+        return union(A,A).size()==originalSize;
     }
 }

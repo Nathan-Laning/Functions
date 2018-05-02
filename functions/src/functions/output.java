@@ -16,7 +16,7 @@ public class output {
         }
         display("");
     }
-    public static void display(int[] A) {
+    public static <AnyType> void display(int[] A) {
         for (int i = 0; i < A.length; i++) {
             display(A[i]);
             display(" ");
@@ -50,11 +50,9 @@ public class output {
     public static <E> void display(E e) {
         if(e==null){
             System.out.print("\u001B[31m");
-        }
-        System.out.print(e);
-        if(e==null){
+            System.out.print(e);
             System.out.print("\u001B[0m");
-        }
+        }else System.out.print(e);
     }
     /**
      * Display AnyType
@@ -68,6 +66,13 @@ public class output {
         display(e);
         if (newLine) System.out.println("");
     }
+    public static void display(boolean B){
+        if(B) System.out.print("\u001B[32m");
+        else System.out.print("\u001B[31m");
+        System.out.print(B);
+        System.out.print("\u001B[30m");
+    }
+
 
     public static <E> void display(E e, int distance){
         int size = e.toString().length();
@@ -82,16 +87,6 @@ public class output {
         for(int i =0; i<dif/2;i++){
             display(" ");
         }
-    }
-
-    public static void display(boolean B){
-        if(B){
-            System.out.print("\u001B[32m");
-        }else{
-            System.out.print("\u001B[31m");
-        }
-        System.out.print(B);
-        System.out.print("\u001B[0m");
     }
 
     public static <E> void generateGraph(ArrayList<E> titles, ArrayList<ArrayList<E>> Data){

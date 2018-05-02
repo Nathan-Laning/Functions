@@ -51,107 +51,32 @@ public class Lexographic {
         return T;
     }
 
-    public static ArrayList<Integer> MultiSetUnRank(int rank, int n) {
-        ArrayList<Integer> A = new ArrayList<>();
-        if (n == 1) {
-            A.add(rank + 1);
-            return A;
-        }
-        for (int i = 0; i < n; i++) {
-            A.add(1);
-        }
-        int R = 0;
-        int X = 0;
-        boolean run = true;
-        while (run) {
-            R = X;
-//            X = MultiSetRank(A);
-            if (X <= rank) {
-                A.add(A.remove(A.size() - 1) + 1);
-            } else {
-                A.add(A.remove(A.size() - 1) - 1);
-                run = false;
+    public static ArrayList<Integer> MultiSetUnRank(int r, int k, int n) {
+        ArrayList<Integer> t = new ArrayList<>();
+        int x=1;
+        for (int i = 1; i < k+1; i++) {
+            while (enumeration.combination(k+n-x,n-i-1)<=r){
+                r-=enumeration.combination(k+n-x,n-i);
+                x++;
             }
+            t.add(x);
         }
-        rank -= R;
-
-        Integer right = A.remove(A.size() - 1);
-        ArrayList<Integer> left;
-        left = MultiSetUnRank(rank, n - 1);
-        left.add(right);
-//        System.out.print(rank);
-//        System.out.print(" : ");
-//        output.display(left);
-        return left;
+        return t;
     }
 
 
-    public static int MultiSetRank(Integer[] T, int n) {
-        int rank = 0;
-        int size=T.length;
-//        int i = 0;
-//        int v=2;
-        boolean run = true;
-        Integer[] N = T.clone();
-//        for (int j = 0; j < N.length; j++) {
-//            if(N[j]==1) N[j]--;
-//        }
-//        int j=0;
-//        while (j < N.length) {
-//            output.display(N);
-//            if(N[j]>0){
-//                int k = size;
-//                rank+=enumeration.combination(k + v-1, v-1);
-//
-//                for (int i = j; i < N.length; i++) {
-//                     N[j]-=v;
-//                }
-//            }else j++;
-//            size--;
-//        }
-
-//        Integer[] N = {0,0,0};
-
-        int j=T.length-1;
-        for (int i = 1; i <T.length+1 ; i++) {
-            if(N[j]>1) {
-                for (int l = 0; l < N[j]-1; l++) {
-                    int k = 2;
-                    int v = i;
-                    rank += enumeration.combination(k + v-1, v-1);
+    public static int MultiSetRank(Integer[] t, int k,int n) {
+        int r=0;
+        Integer[] T=t.clone();
+        T[0]=0;
+        for (int i = 1; i < k; i++) {
+            if(T[i-1]+1<=T[i]) {
+                for (int j = T[i-1]; j < T[i]-1; j++) {
+                    r+=enumeration.combination(k + n-j, n-i);
                 }
             }
-            j--;
         }
-//        for (int i = 0; i < T.length; i++) {
-//                N[T[i] - 1]++;
-//            }
-//        for (int i = 0; i < T.length; i++) {
-//            int next = T[i];
-//            while (next > 0) {
-//                N[next - 1]++;
-//                next--;
-//            }
-//        }
-
-//        output.display(N);
-//        output.display(" | ");
-//        output.display(M);
-//        output.display(" || ");
-//        if(M[n-1]>1) {
-//            N[1] -- ;
-//        }
-//        output.display(N);
-//        output.display(" || ");
-//        for (int i = 1; i < n; i++) {
-//            if (N[i] > 0) {
-//                int k = N[i];
-//                int v = i + 1;
-//                rank += enumeration.combination(k + v -1, v - 1);
-////                rank -= enumeration.combination(1,k);
-//            }
-//        }
-        return rank;
+        return r;
     }
 
 
