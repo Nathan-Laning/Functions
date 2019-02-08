@@ -113,7 +113,7 @@ public class set {
 
     /**
      * new Set
-     * Simple converter from integer to arrayList, but without as much import
+     * Simple converter from integer array to arrayList, but without as much import
      * @param e array
      * @param <E> AnyType
      * @return ArrayList (set)

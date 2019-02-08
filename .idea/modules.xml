@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Functions.iml" filepath="$PROJECT_DIR$/.idea/Functions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TESTING/TESTING.iml" filepath="$PROJECT_DIR$/TESTING/TESTING.iml" />
       <module fileurl="file://$PROJECT_DIR$/functions/functions.iml" filepath="$PROJECT_DIR$/functions/functions.iml" />
       <module fileurl="file://$PROJECT_DIR$/ranking/ranking.iml" filepath="$PROJECT_DIR$/ranking/ranking.iml" />
     </modules>
